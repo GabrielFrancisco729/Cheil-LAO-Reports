@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>CHEIL LAO REPORT - POC</title>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/powerbi-client@2.23.1/dist/powerbi.min.js"></script>
+ 
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+ 
+        #header {
+            height: 54px;
+            background: #111;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            font-size: 18px;
+            font-weight: 600;
+            box-sizing: border-box;
+        }
+ 
+        #reportContainer {
+            width: 100%;
+            height: calc(100vh - 54px);
+        }
+</style>
+</head>
+ 
+<body>
+ 
+    <div id="header">
+        CHEIL LAO REPORT
+</div>
+ 
+    <div id="reportContainer"></div>
+ 
+    <script>
+        const models = window['powerbi-client'].models;
+ 
+        const config = {
+            type: 'report',
+            id: '37370cde-0bbe-4d6a-855f-830082138566',
+            embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=37370cde-0bbe-4d6a-855f-830082138566&groupId=191ce29c-4582-4618-b3ed-e52af7897952&w=2&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLUJSQVpJTC1TT1VUSC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldCIsImVtYmVkRmVhdHVyZXMiOnsidXNhZ2VNZXRyaWNzVk5leHQiOnRydWV9fQ%3d%3d',
+            accessToken: 'H4sIAAAAAAAEAB2Tx66DVgBE_-VtiUQ1JVIWdDCYcjHGsKNfeq9R_j0v2R9ppDMzf_848dUOcfbz548NCr89Q6pfAv5NWUD3fEGYwjbLlhJ2ZhfCjjkj5g1t_p4L_dH4k6aXz3Yws_6ZpyofRManpVU7LaPJ1ysWpkmwHcUVAqVu8rLxvGSjYwAZa8ghd2R6u3Nb1KlzYFpuMlfHvnXtFrYnw2Uq4C9qx8rwqXPNHh9nZslD9KkfSC1JEX-VUo_F3OE91DajGnJ2VXmnTtAI7Vq-gmeQ0OFoPVeuSc2RwHX3qlCoxKrmIN4jumw8f6Qk3F2guFECgy3YUCM-JP30C5_FqiWdy8b2xxDHoKRaSRiF3_Z7TGAsxvqrfUV7LoimbI-o-uJlkjUwGkK9QUP2a9mkxcLPClxtISAT-DQKTdlbOED13w-Hh8rmg_Zu_EVa-NqbMVJmm_tRuUbZrrnAvudL_VaPOW0--bbA7ySVvSvv9LOh-Ecr7YCQjCPNQcIU6Da415L4DzpOJXNtaf5-rRiBvRFPSNw2UXLMbeb3rxMXSRgRJ8uOucWLm-abxEW7cMy3bfQDJSmV8EE71ILH4bd6dJwLkJbhQhwX6E9fO_MFCQgq1zj_ZCNckOqKExjnhSNXEuZBWdZAxCiMPWNppPQBszSNDqYwUrCboIF7xRewv7Qoaph-UWNMKESiX4Gb2Dvm7OVUzv0Uxo0wtAyry4CNqfDccNlep2x2btKIWOmxKLFAb3XDH9P0dO04961vbLexvL_Oz_aQrjeLvtmsFg1JQ1rcQOzUrBNMLiZCQsinQpmWx7_MtYPUDiaob_k25adIAaa_ArpC1pMjmlk7RSmnJW-J5jaOGjjqrpk6TDLiNWP-NvHpr_PiFGQpKvtKVDyf42-8vodc7fxh_fnjR5yvcR2M_PrvTradLrPtTmDW3tLbrISakFlNDEe8cMkY2jTy7ScfiPMOEDc3UOawxFsPch3w3D37wpJ87uyjrqB7ykENMoL9NBwHR3XS7bAeP2d567fhYwKYMlqoL0UC-LePszuotV2WQ0aukYc_T8qinhTSORfusfN5RwlQ8qb3uommEnKlhh1T9TZNhQwdLIoBGYQGuwWyluErpWIvOYL0W1cI48q0qu_6DblYbpUjdXmtBVcHxOKLL0E1AxkKFDmUJRc9mojmed7kFiE3OPlOyaifEfx8BCFRn4Sydcr5Laxa5oSAMKzp9kOmPdRLfDazfNUzMdxLcb44WFr6b3a8hoeHBn0kDsdff_2n-RphPuufX8toYhLOAx5InORdMaqMAa27_J_yqrKP123Of7GSkBh3Hu1lwtzP85VtZ_k7rkSApn0ma20JaHMJdtHKPeqW3uveyGeKOrNQTwfdbfJZO1mnUEVi9pE0sgh-w9iCRFTm_JJ7ZCy4oDLt5MPwNBrPZQVXoB04M754QeFbusD8KRfjvWXbLWjEmcBlTxokunenR_O2kqhXfbuHCa6ytzBPPIlQ0x5QlKJma3EhbDb56rPVJ-bh2Hy7Jz65bR9rwuo29255qaS75ej3-xSBq5vqnDnkODmo5lNMs6aq0-C7BIRtVF99wg80s18VnQcoIKlkeGskFTMmPN_VmUfdbZDzS1JX13XYFDVt_d6Kcl1OorwOynhacCxSSTuET4oVovur-Z9_AaK6tQhCBgAA.eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLUJSQVpJTC1TT1VUSC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldCIsImV4cCI6MTc4ODk2ODIxMiwiYWxsb3dBY2Nlc3NPdmVyUHVibGljSW50ZXJuZXQiOnRydWV9',
+            tokenType: models.TokenType.Embed,
+ 
+            settings: {
+                panes: {
+                    filters: {
+                        visible: false
+                    },
+                    pageNavigation: {
+                        visible: true
+                    }
+                },
+ 
+                background: models.BackgroundType.Transparent
+            }
+        };
+ 
+        const container = document.getElementById('reportContainer');
+ 
+        const report = powerbi.embed(container, config);
+ 
+        report.on('loaded', function () {
+            console.log('CHEIL LAO REPORT carregado');
+        });
+ 
+        report.on('rendered', function () {
+            console.log('CHEIL LAO REPORT renderizado');
+        });
+ 
+        report.on('error', function (event) {
+            console.error(event.detail);
+        });
+</script>
+ 
+</body>
+</html>
